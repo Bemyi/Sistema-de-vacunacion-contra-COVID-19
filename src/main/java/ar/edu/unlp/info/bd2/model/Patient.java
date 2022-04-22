@@ -19,6 +19,10 @@ public class Patient {
         this.dayOfBirth = dayOfBirth;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Time getDayOfBirth() {
         return dayOfBirth;
     }

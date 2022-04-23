@@ -3,12 +3,14 @@ package ar.edu.unlp.info.bd2.model;
 import org.springframework.data.annotation.Id;
 
 import java.sql.Time;
+import java.util.Collection;
 
 public class Patient {
     private String email;
     private String fullname;
     private String password;
     private Time dayOfBirth;
+    private Collection shots;
     @Id
     private Long id;
 
@@ -33,5 +35,10 @@ public class Patient {
 
     public String getPassword() {
         return password;
+    }
+
+    // Conectar con las vacunas
+    public Collection getShots() {
+        return shots;
     }
 }

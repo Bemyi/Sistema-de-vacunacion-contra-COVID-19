@@ -21,7 +21,7 @@ public class Centre {
         return id;
     }
 
-    public void addStaff(Collection name) {
+    public void addStaff(Personal name) {
         this.staff.add(name);
     }
 

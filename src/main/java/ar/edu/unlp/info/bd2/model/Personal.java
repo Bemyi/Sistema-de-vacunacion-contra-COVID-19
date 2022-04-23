@@ -1,19 +1,27 @@
 package ar.edu.unlp.info.bd2.model;
 
-public class Personal {
-    private String fullname;
-    private Integer dni;
+import java.util.Collection;
 
-    public Personal(String fullname, Integer dni) {
-        this.fullname = fullname;
+public class Personal {
+    private String fullName;
+    private String dni;
+    private Collection centres;
+
+    public Personal(String fullName, String dni) {
+        this.fullName = fullName;
         this.dni = dni;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public Integer getDni() {
+    public String getDni() {
         return dni;
+    }
+
+    //Conectar con los centros
+    public Collection getCentres() {
+        return centres;
     }
 }

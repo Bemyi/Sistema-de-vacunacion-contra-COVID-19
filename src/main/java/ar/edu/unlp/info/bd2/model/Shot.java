@@ -7,19 +7,20 @@ import java.sql.Time;
 public class Shot {
     private Patient patient;
     private Vaccine vaccine;
-    private Time dayOfBirth;
+    private Time dateOfVaccine;
     private Centre centre;
     private Nurse nurse;
     private ShotCertificate shotCertificate;
     @Id
     private Long id;
 
-    public Shot(Patient patient, Vaccine vaccine, Time dayOfBirth, Centre centre, Nurse nurse) {
+    public Shot(Patient patient, Vaccine vaccine, Time dateOfVaccine, Centre centre, Nurse nurse) {
         this.patient = patient;
         this.vaccine = vaccine;
-        this.dayOfBirth = dayOfBirth;
+        this.dateOfVaccine = dateOfVaccine;
         this.centre = centre;
         this.nurse = nurse;
+        this.shotCertificate = new ShotCertificate(dateOfVaccine);
     }
 
     public Patient getPatient() {
@@ -38,12 +39,12 @@ public class Shot {
         this.vaccine = vaccine;
     }
 
-    public Time getDayOfBirth() {
-        return dayOfBirth;
+    public Time getDateOfVaccine() {
+        return dateOfVaccine;
     }
 
-    public void setDayOfBirth(Time dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void getDateOfVaccine(Time dateOfVaccine) {
+        this.dateOfVaccine = dateOfVaccine;
     }
 
     public Centre getCentre() {

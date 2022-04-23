@@ -4,9 +4,10 @@ import org.springframework.data.annotation.Id;
 
 import java.sql.Time;
 import java.util.Collection;
+import java.util.List;
 
 public class VaccinationSchedule {
-    private Collection vaccines;
+    private List vaccines; // Collecion tiraba error al hacer un .get(posición). Ver si usar esto o ArrayList
     @Id
     private Long id;
 
@@ -14,7 +15,7 @@ public class VaccinationSchedule {
         return id;
     }
 
-    public Collection getVaccines() {
+    public List getVaccines() {
         return vaccines;
     }
 

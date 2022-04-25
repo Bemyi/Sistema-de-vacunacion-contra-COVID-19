@@ -2,19 +2,21 @@ package ar.edu.unlp.info.bd2.model;
 
 import org.springframework.data.annotation.Id;
 
-import java.sql.Time;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Collection;
+import java.util.Date;
 
 public class Patient {
     private String email;
     private String fullname;
     private String password;
-    private Time dayOfBirth;
+    private Date dayOfBirth;
     private Collection shots;
-    @Id
+
     private Long id;
 
-    public Patient(String email, String fullname, String password, Time dayOfBirth) {
+    public Patient(String email, String fullname, String password, Date dayOfBirth) {
         this.email = email;
         this.fullname = fullname;
         this.password = password;
@@ -25,7 +27,7 @@ public class Patient {
         return id;
     }
 
-    public Time getDayOfBirth() {
+    public Date getDayOfBirth() {
         return dayOfBirth;
     }
 

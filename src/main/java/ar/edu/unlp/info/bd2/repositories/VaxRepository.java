@@ -7,4 +7,8 @@ public class VaxRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 }

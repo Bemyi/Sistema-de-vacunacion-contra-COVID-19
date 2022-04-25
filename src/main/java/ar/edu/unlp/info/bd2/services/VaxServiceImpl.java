@@ -3,6 +3,7 @@ package ar.edu.unlp.info.bd2.services;
 import ar.edu.unlp.info.bd2.model.*;
 import ar.edu.unlp.info.bd2.repositories.VaxException;
 import ar.edu.unlp.info.bd2.repositories.VaxRepository;
+import org.hibernate.Session;
 
 import java.util.Date;
 import java.util.Optional;
@@ -21,7 +22,15 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public Vaccine createVaccine(String name) throws VaxException {
-        return null;
+        Vaccine v = new Vaccine(name);
+        Session session = repository.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.save(v); //<|--- Aqui guardamos el objeto en la base de datos.
+
+        session.getTransaction().commit();
+        session.close();
+        return v;
     }
 
     @Override

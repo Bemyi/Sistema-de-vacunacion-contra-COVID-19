@@ -1,23 +1,32 @@
 package ar.edu.unlp.info.bd2.model;
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 
-public class Vaccine {
-    private Time name;
+@Entity
+@Table
+public class Vaccine implements Serializable {
+
+    @Column
+    private String name;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Vaccine(Time name) {
+    public Vaccine(String name) {
         this.name = name;
     }
 
-    public Time getName() {
+    public Vaccine() {
+
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName(Time name) {
+    public void setName(String name) {
         this.name = name;
     }
 

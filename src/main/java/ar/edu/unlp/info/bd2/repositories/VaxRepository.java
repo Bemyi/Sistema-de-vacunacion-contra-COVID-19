@@ -20,42 +20,20 @@ public class VaxRepository {
     public Object save(IModel modelObj) throws VaxException {
 
         try {
-
-            Session session = sessionFactory.openSession();
-
-            Transaction tx = session.beginTransaction();
-
+            Session session = sessionFactory.getCurrentSession();
             Long id = (Long) session.save(modelObj);
-
             Object objPersisted = session.find(modelObj.getClass(), id);
-
-            tx.commit();
-
-            session.close();
-
+            session.getTransaction().commit();
             return objPersisted;
         }
-
-        catch(PersistenceException ex) {
-
+        catch(Exception ex) {
             throw new VaxException("Constraint Violation");
-
         }
-
     }
 
     public IModel getModelByProperty(IModel m, String propertyName, Object property) {
-
-        Session session = sessionFactory.openSession();
-
-        Transaction tx = session.beginTransaction();
-
+        Session session = sessionFactory.getCurrentSession();
         IModel model = (IModel) session.byNaturalId(m.getClass()).using(propertyName, property).load();
-
-        tx.commit();
-
-        session.close();
-
         return model;
     }
 }

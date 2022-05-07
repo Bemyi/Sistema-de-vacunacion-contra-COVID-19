@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface VaccineRepository extends CrudRepository<Vaccine, Long> {
 
-    Vaccine findByName(String name);
+    Vaccine getByName(String name);
 
 }

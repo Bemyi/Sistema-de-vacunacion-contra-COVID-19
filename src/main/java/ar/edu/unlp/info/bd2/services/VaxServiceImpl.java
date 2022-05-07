@@ -6,6 +6,7 @@ import ar.edu.unlp.info.bd2.repositories.VaxRepository;
 import org.hibernate.Session;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class VaxServiceImpl implements VaxService {
@@ -23,14 +24,7 @@ public class VaxServiceImpl implements VaxService {
     @Override
     public Vaccine createVaccine(String name) throws VaxException {
         Vaccine v = new Vaccine(name);
-        Session session = repository.getSessionFactory().openSession();
-        session.beginTransaction();
-
-        session.save(v); //<|--- Aqui guardamos el objeto en la base de datos.
-
-        session.getTransaction().commit();
-        session.close();
-        return v;
+        return (Vaccine) this.repository.save(v);
     }
 
     @Override
@@ -45,7 +39,12 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public Optional<Vaccine> getVaccineByName(String name) {
-        return Optional.empty();
+        // Optional<Category>
+        // TODO Auto-generated method stub
+        Optional<Vaccine> v =  Optional.ofNullable(
+                (Vaccine) this.repository.getModelByProperty(new Vaccine(), "name", name)
+        );
+        return v;
     }
 
     @Override

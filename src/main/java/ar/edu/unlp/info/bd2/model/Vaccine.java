@@ -1,18 +1,20 @@
 package ar.edu.unlp.info.bd2.model;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 
 @Entity
 @Table
-public class Vaccine implements Serializable {
+public class Vaccine implements Serializable, IModel {
 
-    @Column
-    private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NaturalId
+    @Column(unique = true)
+    private String name;
 
     public Vaccine(String name) {
         this.name = name;
@@ -32,5 +34,13 @@ public class Vaccine implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Vaccine{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

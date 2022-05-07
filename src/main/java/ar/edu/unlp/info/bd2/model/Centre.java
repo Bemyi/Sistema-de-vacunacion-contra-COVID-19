@@ -1,17 +1,27 @@
 package ar.edu.unlp.info.bd2.model;
 
-import org.springframework.data.annotation.Id;
 
-import java.util.Collection;
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class Centre {
+import java.util.List;
+
+@Entity
+@Table
+public class Centre implements Serializable, IModel{
     private String name;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Collection staff;
+    @OneToMany
+    private List<Personal> staff;
 
     public Centre(String name) {
         this.name = name;
+    }
+
+    public Centre() {
+
     }
 
     public String getName() {
@@ -25,7 +35,7 @@ public class Centre {
         this.staff.add(name);
     }
 
-    public Collection getStaffs() {
+    public List<Personal> getStaffs() {
         return staff;
     }
 }

@@ -1,18 +1,22 @@
 package ar.edu.unlp.info.bd2.model;
 
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.*;
+import javax.persistence.GenerationType;
 import java.sql.Time;
-
-public class Shot {
+import java.io.Serializable;
+@Entity
+@Table
+public class Shot implements Serializable, IModel{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private Patient patient;
     private Vaccine vaccine;
     private Time dateOfVaccine;
     private Centre centre;
     private Nurse nurse;
     private ShotCertificate shotCertificate;
-    @Id
-    private Long id;
 
     public Shot(Patient patient, Vaccine vaccine, Time dateOfVaccine, Centre centre, Nurse nurse) {
         this.patient = patient;
@@ -21,6 +25,10 @@ public class Shot {
         this.centre = centre;
         this.nurse = nurse;
         this.shotCertificate = new ShotCertificate(dateOfVaccine);
+    }
+
+    public Shot() {
+
     }
 
     public Patient getPatient() {

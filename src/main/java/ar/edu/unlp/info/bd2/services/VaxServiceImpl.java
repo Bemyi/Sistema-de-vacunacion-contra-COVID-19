@@ -18,7 +18,8 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException {
-        return null;
+        Patient p = new Patient(email, fullname, password, dayOfBirth);
+        return (Patient) this.repository.save(p);
     }
 
     @Override
@@ -34,13 +35,14 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public Optional<Patient> getPatientByEmail(String email) {
-        return Optional.empty();
+        Optional<Patient> p =  Optional.ofNullable(
+                (Patient) this.repository.getModelByProperty(new Patient(), "email", email)
+        );
+        return p;
     }
 
     @Override
     public Optional<Vaccine> getVaccineByName(String name) {
-        // Optional<Category>
-        // TODO Auto-generated method stub
         Optional<Vaccine> v =  Optional.ofNullable(
                 (Vaccine) this.repository.getModelByProperty(new Vaccine(), "name", name)
         );

@@ -1,26 +1,41 @@
 package ar.edu.unlp.info.bd2.model;
 
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.util.Collection;
+import org.hibernate.annotations.NaturalId;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Date;
-
-public class Patient {
+@Entity
+@Table
+public class Patient implements Serializable, IModel{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @NaturalId
+    @Column(unique = true)
     private String email;
     private String fullname;
     private String password;
-    private Date dayOfBirth;
-    private Collection shots;
 
-    private Long id;
+    private Date dayOfBirth;
+    @OneToMany
+    private List<Shot> shots;
+
 
     public Patient(String email, String fullname, String password, Date dayOfBirth) {
         this.email = email;
         this.fullname = fullname;
         this.password = password;
         this.dayOfBirth = dayOfBirth;
+        System.out.println(dayOfBirth);
+        System.out.println(this.dayOfBirth);
+    }
+
+    public Patient() {
+
     }
 
     public Long getId() {
@@ -28,7 +43,7 @@ public class Patient {
     }
 
     public Date getDayOfBirth() {
-        return dayOfBirth;
+        return this.dayOfBirth;
     }
 
     public String getFullname() {
@@ -40,7 +55,7 @@ public class Patient {
     }
 
     // Conectar con las vacunas
-    public Collection getShots() {
+    public List<Shot> getShots() {
         return shots;
     }
 }

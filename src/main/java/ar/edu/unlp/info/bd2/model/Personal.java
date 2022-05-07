@@ -1,15 +1,26 @@
 package ar.edu.unlp.info.bd2.model;
 
-import java.util.Collection;
-
-public class Personal {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+@Entity
+@Table
+public class Personal implements Serializable, IModel{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String fullName;
     private String dni;
-    private Collection centres;
+    @OneToMany
+    private List<Centre> centres;
 
     public Personal(String fullName, String dni) {
         this.fullName = fullName;
         this.dni = dni;
+    }
+
+    public Personal() {
+
     }
 
     public String getFullName() {
@@ -21,7 +32,7 @@ public class Personal {
     }
 
     //Conectar con los centros
-    public Collection getCentres() {
+    public List<Centre> getCentres() {
         return centres;
     }
 }

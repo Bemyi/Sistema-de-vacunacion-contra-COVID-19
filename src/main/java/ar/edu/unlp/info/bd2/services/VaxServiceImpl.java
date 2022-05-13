@@ -3,10 +3,8 @@ package ar.edu.unlp.info.bd2.services;
 import ar.edu.unlp.info.bd2.model.*;
 import ar.edu.unlp.info.bd2.repositories.VaxException;
 import ar.edu.unlp.info.bd2.repositories.VaxRepository;
-import org.hibernate.Session;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 public class VaxServiceImpl implements VaxService {
@@ -36,7 +34,6 @@ public class VaxServiceImpl implements VaxService {
         Shot shot = (Shot) this.repository.save(s);
         patient.addShot(shot);
         return shot;
-        //return (Shot) this.repository.save(s);
     }
 
     @Override
@@ -81,11 +78,7 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException {
-        return (VaccinationSchedule) this.repository.getModelByPropertys(new VaccinationSchedule(), "id", id);
-        /*VaccinationSchedule v =  (VaccinationSchedule) this.repository.getModelByProperty(new VaccinationSchedule(), "id", id);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println(v.getId());
-        return v;*/
+        return (VaccinationSchedule) this.repository.getModelById(new VaccinationSchedule(), id);
     }
 
     @Override

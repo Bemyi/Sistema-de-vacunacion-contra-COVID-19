@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Vaccine implements Serializable, IModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NaturalId
     @Column(unique = true)

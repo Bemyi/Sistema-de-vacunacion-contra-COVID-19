@@ -28,20 +28,19 @@ public class VaxRepository {
             return objPersisted;
         }
         catch(Exception ex) {
-            //throw new VaxException("Constraint Violation");
-            throw new VaxException(ex.getMessage());
+            throw new VaxException("Constraint Violation");
         }
     }
 
     public IModel getModelByProperty(IModel m, String propertyName, Object property) {
         Session session = sessionFactory.getCurrentSession();
-        IModel model = (IModel) session.byNaturalId(m.getClass()).using(propertyName, property).load();
+        IModel model = session.byNaturalId(m.getClass()).using(propertyName, property).load();
         return model;
     }
 
-    public IModel getModelByPropertys(IModel m, String propertyName, Object property) {
+    public IModel getModelById(IModel m, Long id) {
         Session session = sessionFactory.getCurrentSession();
-        IModel model = (IModel) session.bySimpleNaturalId(m.getClass()).load(property);
+        IModel model = session.get(m.getClass(), id);
         return model;
     }
 }

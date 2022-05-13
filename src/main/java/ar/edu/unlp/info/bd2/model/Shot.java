@@ -10,7 +10,7 @@ import java.util.Date;
 @Table
 public class Shot implements Serializable, IModel{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne()
     @JoinColumn(name = "patient_id")

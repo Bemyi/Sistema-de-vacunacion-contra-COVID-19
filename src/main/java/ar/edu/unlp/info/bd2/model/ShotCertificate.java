@@ -7,7 +7,7 @@ import java.util.Date;
 @Table
 public class ShotCertificate implements Serializable, IModel{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
     private Integer serialNumber;

@@ -24,16 +24,24 @@ public class VaxRepository {
             Long id = (Long) session.save(modelObj);
             Object objPersisted = session.find(modelObj.getClass(), id);
             session.getTransaction().commit();
+            session.getTransaction().begin(); // ¿? Si no hay esto dice q la transacción no se inicia y solamente persiste el primer objeto. Problemas con el commit de arriba
             return objPersisted;
         }
         catch(Exception ex) {
-            throw new VaxException("Constraint Violation");
+            //throw new VaxException("Constraint Violation");
+            throw new VaxException(ex.getMessage());
         }
     }
 
     public IModel getModelByProperty(IModel m, String propertyName, Object property) {
         Session session = sessionFactory.getCurrentSession();
         IModel model = (IModel) session.byNaturalId(m.getClass()).using(propertyName, property).load();
+        return model;
+    }
+
+    public IModel getModelByPropertys(IModel m, String propertyName, Object property) {
+        Session session = sessionFactory.getCurrentSession();
+        IModel model = (IModel) session.bySimpleNaturalId(m.getClass()).load(property);
         return model;
     }
 }

@@ -3,28 +3,38 @@ package ar.edu.unlp.info.bd2.model;
 
 import javax.persistence.*;
 import javax.persistence.GenerationType;
-import java.sql.Time;
 import java.io.Serializable;
+import java.util.Date;
+
 @Entity
 @Table
 public class Shot implements Serializable, IModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne()
+    @JoinColumn(name = "patient_id")
     private Patient patient;
+    @JoinColumn(name = "vaccine_id")
+    @OneToOne(fetch = FetchType.LAZY)
     private Vaccine vaccine;
-    private Time dateOfVaccine;
+    private Date dateOfVaccine;
+    @ManyToOne()
+    @JoinColumn(name = "centre_id")
     private Centre centre;
+    @ManyToOne()
+    @JoinColumn(name = "nurse_id")
     private Nurse nurse;
+    @OneToOne
     private ShotCertificate shotCertificate;
 
-    public Shot(Patient patient, Vaccine vaccine, Time dateOfVaccine, Centre centre, Nurse nurse) {
+    public Shot(Patient patient, Vaccine vaccine, Date dateOfVaccine, Centre centre, Nurse nurse, ShotCertificate shotCertificate) {
         this.patient = patient;
         this.vaccine = vaccine;
         this.dateOfVaccine = dateOfVaccine;
         this.centre = centre;
         this.nurse = nurse;
-        this.shotCertificate = new ShotCertificate(dateOfVaccine);
+        this.shotCertificate = shotCertificate;
     }
 
     public Shot() {
@@ -47,11 +57,11 @@ public class Shot implements Serializable, IModel{
         this.vaccine = vaccine;
     }
 
-    public Time getDateOfVaccine() {
+    public Date getDateOfVaccine() {
         return dateOfVaccine;
     }
 
-    public void getDateOfVaccine(Time dateOfVaccine) {
+    public void getDateOfVaccine(Date dateOfVaccine) {
         this.dateOfVaccine = dateOfVaccine;
     }
 

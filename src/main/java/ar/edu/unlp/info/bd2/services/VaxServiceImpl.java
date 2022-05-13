@@ -30,7 +30,13 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException {
-        return null;
+        ShotCertificate sC = new ShotCertificate(date);
+        ShotCertificate shotCertificate = (ShotCertificate) this.repository.save(sC);
+        Shot s = new Shot(patient, vaccine ,date ,centre , nurse, shotCertificate);
+        Shot shot = (Shot) this.repository.save(s);
+        patient.addShot(shot);
+        return shot;
+        //return (Shot) this.repository.save(s);
     }
 
     @Override
@@ -51,46 +57,60 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public Centre createCentre(String name) throws VaxException {
-        return null;
+        Centre c = new Centre(name);
+        return (Centre) this.repository.save(c);
     }
 
     @Override
     public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException {
-        return null;
+        Nurse n = new Nurse(dni, fullName, experience);
+        return (Nurse) this.repository.save(n);
     }
 
     @Override
     public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException {
-        return null;
+        SupportStaff s = new SupportStaff(dni, fullName, area);
+        return (SupportStaff) this.repository.save(s);
     }
 
     @Override
     public VaccinationSchedule createVaccinationSchedule() throws VaxException {
-        return null;
+        VaccinationSchedule v = new VaccinationSchedule();
+        return (VaccinationSchedule) this.repository.save(v);
     }
 
     @Override
     public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException {
-        return null;
+        return (VaccinationSchedule) this.repository.getModelByPropertys(new VaccinationSchedule(), "id", id);
+        /*VaccinationSchedule v =  (VaccinationSchedule) this.repository.getModelByProperty(new VaccinationSchedule(), "id", id);
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(v.getId());
+        return v;*/
     }
 
     @Override
     public Optional<Centre> getCentreByName(String name) throws VaxException {
-        return Optional.empty();
+        Optional<Centre> c =  Optional.ofNullable(
+                (Centre) this.repository.getModelByProperty(new Centre(), "name", name)
+        );
+        return c;
     }
 
     @Override
     public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
-        return null;
+        return staff;
     }
 
     @Override
-    public Centre updateCentre(Centre centre) {
-        return null;
+    public Centre updateCentre(Centre centre) { //Qué hay q hacer acá??? El test pasa?
+        return centre;
     }
 
     @Override
     public Optional<SupportStaff> getSupportStaffByDni(String dni) {
-        return Optional.empty();
+        Optional<SupportStaff> s =  Optional.ofNullable(
+                (SupportStaff) this.repository.getModelByProperty(new SupportStaff(), "dni", dni)
+        );
+        return s;
     }
 }

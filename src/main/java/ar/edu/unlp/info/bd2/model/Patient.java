@@ -5,6 +5,7 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
@@ -21,8 +22,8 @@ public class Patient implements Serializable, IModel{
     private String password;
 
     private Date dayOfBirth;
-    @OneToMany
-    private List<Shot> shots;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Shot> shots = new ArrayList<>();
 
 
     public Patient(String email, String fullname, String password, Date dayOfBirth) {
@@ -57,5 +58,9 @@ public class Patient implements Serializable, IModel{
     // Conectar con las vacunas
     public List<Shot> getShots() {
         return shots;
+    }
+
+    public void addShot(Shot shot) {
+        this.shots.add(shot);
     }
 }

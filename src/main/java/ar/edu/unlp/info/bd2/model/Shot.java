@@ -20,7 +20,7 @@ public class Shot implements Serializable, IModel{
     private Vaccine vaccine;
     private Date dateOfVaccine;
     @ManyToOne()
-    @JoinColumn(name = "centre_id")
+    @JoinColumn(name = "idCentre", referencedColumnName = "id")
     private Centre centre;
     @ManyToOne()
     @JoinColumn(name = "nurse_id")

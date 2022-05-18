@@ -1,11 +1,13 @@
 package ar.edu.unlp.info.bd2.repositories;
 
+import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.IModel;
 import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +53,22 @@ public class VaxRepository {
 
     public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
         Session session = sessionFactory.getCurrentSession();
-        List nursesList = session.createQuery("select n from Nurse as n where n.experience > :years").setParameter("years", years).list();
+        List nursesList = session.createQuery("select n " +
+                "from Nurse " +
+                "as n " +
+                "where n.experience > :years")
+                .setParameter("years", years)
+                .list();
         return nursesList;
+    }
+
+    public Centre getTopShotCentre(){
+        Session session = sessionFactory.getCurrentSession();
+        List centres = session.createQuery("select new Centre (s.centre.name)" +
+                "from Shot as s "+
+                "group by s.centre "+
+                "order by count(s.centre.id) desc").setMaxResults(1).getResultList();
+        Centre centre = (Centre) centres.get(0);
+        return centre;
     }
 }

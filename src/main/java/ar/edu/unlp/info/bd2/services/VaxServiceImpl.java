@@ -109,6 +109,11 @@ public class VaxServiceImpl implements VaxService {
     }
 
     @Override
+    public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule vaccinationSchedule) {
+        return null;
+    }
+
+    @Override
     public List<Patient> getAllPatients() {
         return null;
     }

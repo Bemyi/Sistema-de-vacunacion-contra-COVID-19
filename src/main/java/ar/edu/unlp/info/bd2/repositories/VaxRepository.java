@@ -1,12 +1,14 @@
 package ar.edu.unlp.info.bd2.repositories;
 
 import ar.edu.unlp.info.bd2.model.IModel;
+import ar.edu.unlp.info.bd2.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.PersistenceException;
+import java.util.List;
 
 public class VaxRepository {
 
@@ -38,5 +40,12 @@ public class VaxRepository {
         Session session = sessionFactory.getCurrentSession();
         IModel model = session.get(m.getClass(), id);
         return model;
+    }
+
+    public List<Patient> getAllPatients() {
+        Session session = sessionFactory.getCurrentSession();
+        List patientsList = session.createQuery("select p from Patient as p").list();
+        System.out.println(patientsList);
+        return patientsList;
     }
 }

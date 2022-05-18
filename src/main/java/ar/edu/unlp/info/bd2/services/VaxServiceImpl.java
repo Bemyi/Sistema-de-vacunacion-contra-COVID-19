@@ -115,7 +115,7 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public List<Patient> getAllPatients() {
-        return null;
+        return this.repository.getAllPatients();
     }
 
     @Override

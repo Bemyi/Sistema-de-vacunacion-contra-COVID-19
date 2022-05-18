@@ -120,7 +120,7 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
-        return null;
+        return this.repository.getNurseWithMoreThanNYearsExperience(years);
     }
 
     @Override

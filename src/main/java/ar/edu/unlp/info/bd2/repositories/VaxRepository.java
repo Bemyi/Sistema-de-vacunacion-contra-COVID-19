@@ -1,6 +1,7 @@
 package ar.edu.unlp.info.bd2.repositories;
 
 import ar.edu.unlp.info.bd2.model.IModel;
+import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,5 +47,11 @@ public class VaxRepository {
         Session session = sessionFactory.getCurrentSession();
         List patientsList = session.createQuery("select p from Patient as p").list();
         return patientsList;
+    }
+
+    public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
+        Session session = sessionFactory.getCurrentSession();
+        List nursesList = session.createQuery("select n from Nurse as n where n.experience > :years").setParameter("years", years).list();
+        return nursesList;
     }
 }

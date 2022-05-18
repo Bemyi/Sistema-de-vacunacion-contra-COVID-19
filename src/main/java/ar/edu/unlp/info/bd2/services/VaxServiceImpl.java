@@ -5,6 +5,7 @@ import ar.edu.unlp.info.bd2.repositories.VaxException;
 import ar.edu.unlp.info.bd2.repositories.VaxRepository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class VaxServiceImpl implements VaxService {
@@ -105,5 +106,50 @@ public class VaxServiceImpl implements VaxService {
                 (SupportStaff) this.repository.getModelByProperty(new SupportStaff(), "dni", dni)
         );
         return s;
+    }
+
+    @Override
+    public List<Patient> getAllPatients() {
+        return null;
+    }
+
+    @Override
+    public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
+        return null;
+    }
+
+    @Override
+    public List<Centre> getCentresTopNStaff(int n) {
+        return null;
+    }
+
+    @Override
+    public Centre getTopShotCentre() {
+        return null;
+    }
+
+    @Override
+    public List<Nurse> getNurseNotShot() {
+        return null;
+    }
+
+    @Override
+    public String getLessEmployeesSupportStaffArea() {
+        return null;
+    }
+
+    @Override
+    public List<Staff> getStaffWithName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Vaccine> getUnappliedVaccines() {
+        return null;
+    }
+
+    @Override
+    public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
+        return null;
     }
 }

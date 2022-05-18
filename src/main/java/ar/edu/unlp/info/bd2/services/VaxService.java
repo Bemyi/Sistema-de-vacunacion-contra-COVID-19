@@ -118,4 +118,11 @@ public interface VaxService extends VaxStatisticsService{
 	 * @return el SupportStaff
 	 * */
 	Optional<SupportStaff> getSupportStaffByDni(String dni);
+
+	/**
+	 * @param vaccinationSchedule el vaccinationSchedule a actualizar
+	 * @return el vaccinationSchedule
+	 * @throws VaxException
+	 */
+	VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule vaccinationSchedule);
 }

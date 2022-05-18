@@ -88,6 +88,7 @@ public class VaxStatisticsTestCase {
     @Test
     public void testGetNurseNotShot() {
         List<Nurse> nurses = this.service.getNurseNotShot();
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         assertEquals(1,nurses.size());
         assertEquals("Kristin Vega",nurses.get(0).getFullName());
         assertEquals("46768509",nurses.get(0).getDni());

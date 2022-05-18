@@ -24,9 +24,9 @@ public class Centre implements Serializable, IModel{
             CascadeType.MERGE
     })
     @JoinTable(
-            name = "centre_personal",
+            name = "centre_staff",
             joinColumns = {@JoinColumn(name = "centre_id")},
-            inverseJoinColumns = {@JoinColumn(name = "personal_id")}
+            inverseJoinColumns = {@JoinColumn(name = "staff_id")}
     )
     private List<Staff> staff = new ArrayList<>();
 

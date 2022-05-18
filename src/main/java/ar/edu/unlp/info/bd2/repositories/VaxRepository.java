@@ -71,4 +71,14 @@ public class VaxRepository {
         Centre centre = (Centre) centres.get(0);
         return centre;
     }
+
+    public String getLessEmployeesSupportStaffArea() {
+        Session session = sessionFactory.getCurrentSession();
+        List areas = session.createQuery("select s.area "+
+                "from SupportStaff as s "+
+                "group by s.area "+
+                "order by count(s.area) asc").list();
+        String area = (String) areas.get(0);
+        return area;
+    }
 }

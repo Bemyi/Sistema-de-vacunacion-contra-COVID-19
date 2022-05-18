@@ -1,9 +1,6 @@
 package ar.edu.unlp.info.bd2.repositories;
 
-import ar.edu.unlp.info.bd2.model.Centre;
-import ar.edu.unlp.info.bd2.model.IModel;
-import ar.edu.unlp.info.bd2.model.Nurse;
-import ar.edu.unlp.info.bd2.model.Patient;
+import ar.edu.unlp.info.bd2.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -72,11 +69,22 @@ public class VaxRepository {
         return centre;
     }
 
-    public List<Nurse> getNurseNotShot(){
+    public String getLessEmployeesSupportStaffArea() {
         Session session = sessionFactory.getCurrentSession();
-        List nurses = session.createQuery("select n " +
-                "from Nurse as n "+
-                "where n.id not in(select s.nurse.id from Shot as s)").list();
-        return nurses;
+        List areas = session.createQuery("select s.area "+
+                "from SupportStaff as s "+
+                "group by s.area "+
+                "order by count(s.area) asc").list();
+        String area = (String) areas.get(0);
+        return area;
+    }
+
+    public List<Staff> testGetStaffWithName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q= session.createQuery("select new Staff (s.fullName, s.dni)"+
+                "from Staff as s "+
+                "where s.fullName like :name");
+        q.setParameter("name", "%" + name + "%");
+        return q.list();
     }
 }

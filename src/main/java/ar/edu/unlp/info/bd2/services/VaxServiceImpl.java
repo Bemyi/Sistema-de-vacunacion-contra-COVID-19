@@ -140,12 +140,12 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public String getLessEmployeesSupportStaffArea() {
-        return null;
+        return this.repository.getLessEmployeesSupportStaffArea();
     }
 
     @Override
     public List<Staff> getStaffWithName(String name) {
-        return null;
+        return this.repository.testGetStaffWithName(name);
     }
 
     @Override

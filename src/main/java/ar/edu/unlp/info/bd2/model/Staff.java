@@ -17,7 +17,7 @@ public class Staff implements Serializable, IModel{
     @NaturalId
     private String dni;
 
-    @ManyToMany
+    @ManyToMany (mappedBy = "staff")
     private List<Centre> centres = new ArrayList<>();
 
     public Staff(String fullName, String dni) {

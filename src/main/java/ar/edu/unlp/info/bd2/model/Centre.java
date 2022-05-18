@@ -27,7 +27,7 @@ public class Centre implements Serializable, IModel{
             joinColumns = {@JoinColumn(name = "centre_id")},
             inverseJoinColumns = {@JoinColumn(name = "personal_id")}
     )
-    private List<Personal> staff = new ArrayList<>();
+    private List<Staff> staff = new ArrayList<>();
 
     public Centre(String name) {
         this.name = name;
@@ -44,17 +44,17 @@ public class Centre implements Serializable, IModel{
         return id;
     }
 
-    public void addStaff(Personal personal) {
-        this.staff.add(personal);
-        personal.getCentres().add(this);
+    public void addStaff(Staff staff) {
+        this.staff.add(staff);
+        staff.getCentres().add(this);
     }
 
-    public void removeStaff(Personal personal) {
-        this.staff.remove(personal);
-        personal.getCentres().remove(this);
+    public void removeStaff(Staff staff) {
+        this.staff.remove(staff);
+        staff.getCentres().remove(this);
     }
 
-    public List<Personal> getStaffs() {
+    public List<Staff> getStaffs() {
         return staff;
     }
 }

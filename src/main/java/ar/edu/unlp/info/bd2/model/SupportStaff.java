@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("1")
-public class SupportStaff extends Personal{
+public class SupportStaff extends Staff {
     private String area;
 
     public SupportStaff(String dni, String fullname, String area) {

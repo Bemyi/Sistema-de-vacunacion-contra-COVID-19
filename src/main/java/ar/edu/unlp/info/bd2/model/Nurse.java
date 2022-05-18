@@ -3,7 +3,7 @@ package ar.edu.unlp.info.bd2.model;
 import javax.persistence.*;
 @Entity
 @DiscriminatorValue("2")
-public class Nurse extends Personal{
+public class Nurse extends Staff {
     private Integer experience;
 
     public Nurse(String dni, String fullname, Integer experience) {

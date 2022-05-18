@@ -67,7 +67,7 @@ public class VaxRepository {
         List centres = session.createQuery("select new Centre (s.centre.name)" +
                 "from Shot as s "+
                 "group by s.centre "+
-                "order by count(s.centre.id) desc").setMaxResults(1).getResultList();
+                "order by count(s.centre.id) desc").list();
         Centre centre = (Centre) centres.get(0);
         return centre;
     }

@@ -69,6 +69,14 @@ public class VaxRepository {
         return centre;
     }
 
+    public List<Nurse> getNurseNotShot() {
+        Session session = sessionFactory.getCurrentSession();
+        List nurses = session.createQuery("select n " +
+                "from Nurse as n " +
+                "where n.id not in(select s.nurse.id from Shot as s)").list();
+        return nurses;
+    }
+
     public String getLessEmployeesSupportStaffArea() {
         Session session = sessionFactory.getCurrentSession();
         List areas = session.createQuery("select s.area "+

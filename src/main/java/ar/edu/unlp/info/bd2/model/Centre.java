@@ -13,6 +13,7 @@ import java.util.List;
 @Table
 public class Centre implements Serializable, IModel{
     @NaturalId
+    @Column(unique = true)
     private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

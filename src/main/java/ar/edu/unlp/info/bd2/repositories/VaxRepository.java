@@ -6,10 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
-
+@Transactional
 public class VaxRepository {
 
     @Autowired
@@ -20,7 +21,6 @@ public class VaxRepository {
     }
 
     public Object save(IModel modelObj) throws VaxException {
-
         try {
             Long id = (Long) sessionFactory.getCurrentSession().save(modelObj);
             return sessionFactory.getCurrentSession().find(modelObj.getClass(), id);
@@ -45,7 +45,6 @@ public class VaxRepository {
     public List<Patient> getAllPatients() {
         Session session = sessionFactory.getCurrentSession();
         List patientsList = session.createQuery("select p from Patient as p").list();
-        System.out.println(patientsList);
         return patientsList;
     }
 }

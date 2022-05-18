@@ -97,6 +97,14 @@ public class VaxRepository {
         return q.list();
     }
 
+    public List<Vaccine> getUnappliedVaccines() {
+        Session session = sessionFactory.getCurrentSession();
+        List vaccines = session.createQuery("select v " +
+                "from Vaccine as v " +
+                "where v.id not in(select s.vaccine.id from Shot as s)").list();
+        return vaccines;
+    }
+
     public List<ShotCertificate> getShotCertificatesBetweenDates (Date startDate, Date endDate) {
         Session session = sessionFactory.getCurrentSession();
         Query q= session.createQuery("select s "+

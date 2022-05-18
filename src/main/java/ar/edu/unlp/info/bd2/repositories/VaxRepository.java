@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
+import java.util.Date;
 import java.util.List;
 @Transactional
 public class VaxRepository {
@@ -93,6 +94,16 @@ public class VaxRepository {
                 "from Staff as s "+
                 "where s.fullName like :name");
         q.setParameter("name", "%" + name + "%");
+        return q.list();
+    }
+
+    public List<ShotCertificate> getShotCertificatesBetweenDates (Date startDate, Date endDate) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q= session.createQuery("select s "+
+                "from ShotCertificate as s "+
+                "where s.date between :stDate and :edDate");
+        q.setParameter("stDate", startDate);
+        q.setParameter("edDate", endDate);
         return q.list();
     }
 }

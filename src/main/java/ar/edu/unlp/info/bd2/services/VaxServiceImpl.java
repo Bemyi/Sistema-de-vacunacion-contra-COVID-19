@@ -155,6 +155,6 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
-        return null;
+        return this.repository.getShotCertificatesBetweenDates(startDate, endDate);
     }
 }

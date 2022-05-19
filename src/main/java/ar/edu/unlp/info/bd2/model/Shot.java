@@ -1,6 +1,5 @@
 package ar.edu.unlp.info.bd2.model;
 
-
 import javax.persistence.*;
 import javax.persistence.GenerationType;
 import java.io.Serializable;

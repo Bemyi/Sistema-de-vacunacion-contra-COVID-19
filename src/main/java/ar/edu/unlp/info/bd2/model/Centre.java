@@ -1,6 +1,5 @@
 package ar.edu.unlp.info.bd2.model;
 
-
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;

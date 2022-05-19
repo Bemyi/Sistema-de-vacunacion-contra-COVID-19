@@ -3,12 +3,10 @@ package ar.edu.unlp.info.bd2.repositories;
 import ar.edu.unlp.info.bd2.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.List;
 @Transactional
@@ -58,6 +56,14 @@ public class VaxRepository {
                 .setParameter("years", years)
                 .list();
         return nursesList;
+    }
+
+    public List<Centre> getCentresTopNStaff(int n) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("select c from Centre as c order by c.staff.size desc");
+        q.setMaxResults(5);
+        List centresList = q.list();
+        return centresList;
     }
 
     public Centre getTopShotCentre(){

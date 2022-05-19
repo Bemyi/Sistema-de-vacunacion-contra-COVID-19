@@ -1,6 +1,5 @@
 package ar.edu.unlp.info.bd2.model;
 
-
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -41,6 +40,10 @@ public class Patient implements Serializable, IModel{
 
     public Long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public Date getDayOfBirth() {

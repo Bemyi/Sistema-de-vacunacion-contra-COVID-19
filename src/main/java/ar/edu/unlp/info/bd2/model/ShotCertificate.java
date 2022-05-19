@@ -14,7 +14,7 @@ public class ShotCertificate implements Serializable, IModel{
 
     public ShotCertificate(Date date) {
         this.date = date;
-        this.serialNumber = 0; // Crear un random
+        this.serialNumber = (int) (Math.random()*1000+1);
     }
 
     public ShotCertificate() {

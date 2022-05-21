@@ -92,7 +92,7 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
-        return staff;
+        return (SupportStaff) this.repository.updateWithException(staff, staff.getId());
     }
 
     @Override
@@ -110,7 +110,7 @@ public class VaxServiceImpl implements VaxService {
 
     @Override
     public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule vaccinationSchedule) {
-        return null;
+        return (VaccinationSchedule) this.repository.update(vaccinationSchedule, vaccinationSchedule.getId());
     }
 
     @Override

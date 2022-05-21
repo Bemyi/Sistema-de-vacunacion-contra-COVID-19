@@ -5,7 +5,6 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 @Entity
@@ -58,7 +57,6 @@ public class Patient implements Serializable, IModel{
         return password;
     }
 
-    // Conectar con las vacunas
     public List<Shot> getShots() {
         return shots;
     }

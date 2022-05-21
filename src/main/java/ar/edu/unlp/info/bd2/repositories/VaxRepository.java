@@ -34,6 +34,16 @@ public class VaxRepository {
         return sessionFactory.getCurrentSession().find(modelObj.getClass(), id);
     }
 
+    public Object updateWithException(IModel modelObj, Long id) throws VaxException {
+        try {
+            sessionFactory.getCurrentSession().update(modelObj);
+            return sessionFactory.getCurrentSession().find(modelObj.getClass(), id);
+        }
+        catch(Exception ex) {
+            throw new VaxException("Constraint Violation");
+        }
+    }
+
     public IModel getModelByProperty(IModel m, String propertyName, Object property) {
         Session session = sessionFactory.getCurrentSession();
         IModel model = session.byNaturalId(m.getClass()).using(propertyName, property).load();

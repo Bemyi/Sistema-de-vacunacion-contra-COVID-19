@@ -29,6 +29,11 @@ public class VaxRepository {
         }
     }
 
+    public Object update(IModel modelObj, Long id) {
+        sessionFactory.getCurrentSession().update(modelObj);
+        return sessionFactory.getCurrentSession().find(modelObj.getClass(), id);
+    }
+
     public IModel getModelByProperty(IModel m, String propertyName, Object property) {
         Session session = sessionFactory.getCurrentSession();
         IModel model = session.byNaturalId(m.getClass()).using(propertyName, property).load();
@@ -60,8 +65,8 @@ public class VaxRepository {
 
     public List<Centre> getCentresTopNStaff(int n) {
         Session session = sessionFactory.getCurrentSession();
-        Query q = session.createQuery("select c from Centre as c order by c.staff.size desc");
-        q.setMaxResults(5);
+        Query q = session.createQuery("select c from Centre as c order by size(c.staff) desc");
+        q.setMaxResults(n);
         List centresList = q.list();
         return centresList;
     }

@@ -96,8 +96,8 @@ public class VaxServiceImpl implements VaxService {
     }
 
     @Override
-    public Centre updateCentre(Centre centre) { //Qué hay q hacer acá??? El test pasa?
-        return centre;
+    public Centre updateCentre(Centre centre) {
+        return (Centre) this.repository.update(centre, centre.getId());
     }
 
     @Override

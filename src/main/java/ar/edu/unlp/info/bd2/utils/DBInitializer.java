@@ -3,6 +3,7 @@ package ar.edu.unlp.info.bd2.utils;
 import ar.edu.unlp.info.bd2.model.*;
 import ar.edu.unlp.info.bd2.services.VaxService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 
@@ -10,7 +11,7 @@ public class DBInitializer {
 
     @Autowired
     VaxService service;
-
+    @Transactional
     public void prepareDB() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 

@@ -1,0 +1,124 @@
+Parte 2
+5-
+use vaccination
+db.createCollection('nurses')
+db.nurses.insert({name:'Morella Crespo', experience:9})
+
+6-
+db.nurses.insertMany([
+  {name:'Gale Molina', experience:8, vaccines: ['AZ', 'Moderna']},
+  {name:'Honoria Fernández', experience:5, vaccines: ['Pfizer', 'Moderna', 'Sputnik V']},
+  {name:'Gonzalo Gallardo', experience:3},
+  {name:'Altea Parra', experience:6, vaccines: ['Pfizer']}])
+db.nurses.find({experience:{$lte:5}})
+db.nurses.find({vaccines:{$in:['Pfizer']}})
+db.nurses.find({ vaccines: { $exists: false }})
+db.nurses.find({name: /Fernández/ })
+db.nurses.find({experience:{$gte:6}, vaccines: {$in: ['Moderna']}})
+db.nurses.find({experience:{$gte:6}, vaccines: {$in: ['Moderna']}}, {name: 1, _id: 0})
+
+7-
+db.nurses.updateOne({name: "Gale Molina"}, {$set: {experience: 9}})
+
+8-
+db.nurses.updateOne({name: "Gonzalo Gallardo"}, { $set: {vaccines: []}})
+
+9-
+db.nurses.updateOne({name: "Altea Parra"}, {$push: {vaccines: "AZ"}})
+
+10-
+db.nurses.updateMany({ vaccines: { $in: ["Pfizer"]}}, { $mul: {experience: 2}})
+
+Parte 3
+12-
+coordenadas_CABA = {
+ "type":"MultiPolygon",
+ "coordinates":[[[
+   [-58.46305847167969,-34.53456089748654],
+   [-58.49979400634765,-34.54983198845187],
+   [-58.532066345214844,-34.614561581608186],
+   [-58.528633117675774,-34.6538270014492],
+   [-58.48674774169922,-34.68742794931483],
+   [-58.479881286621094,-34.68206400648744],
+   [-58.46855163574218,-34.65297974261105],
+   [-58.465118408203125,-34.64733112904415],
+   [-58.4585952758789,-34.63998735602951],
+   [-58.45344543457032,-34.63603274732642],
+   [-58.447265625,-34.63575026806082],
+   [-58.438339233398445,-34.63038297923296],
+   [-58.38100433349609,-34.62162507826766],
+   [-58.38237762451171,-34.59251960889388],
+   [-58.378944396972656,-34.5843230246475],
+   [-58.46305847167969,-34.53456089748654]
+ ]]]
+}
+db.patients.find({address:{$geoWithin:{$geometry:coordenadas_CABA}}}).explain("executionStats")
+db.patients.createIndex( { address: "2dsphere" } )
+db.patients.find({address:{$geoWithin:{$geometry:coordenadas_CABA}}}).explain("executionStats")
+
+Parte 4
+14-
+db.patients.aggregate([{ $sample: { size: 5 } }])
+
+15-
+db.patients.aggregate([
+   {
+     $geoNear: {
+        near: { type: "Point", coordinates: [-58.4586,-34.5968] },
+        distanceField: "distancia_del_centro",
+        maxDistance: 1000,
+        spherical: true
+     }
+   },
+   {$out: 'center_patients'}
+])
+
+16-
+db.center_patients.aggregate([
+{
+  $lookup:{
+      from: "doses",
+      localField: "name",
+      foreignField: "patient",
+      as: "doses"
+  }
+},
+{
+  $project: {
+    _id: 0,
+    name: 0,
+    address: 0,
+    distancia_del_centro: 0
+  }
+},
+{
+  $replaceRoot: {newRoot: {$mergeObjects: [ {$arrayElemAt: ["$doses", 0] }, "$$ROOT" ] } }
+},
+{
+  $project: {doses: 0}
+},
+{
+  $out: "center_doses"
+}
+])
+
+17-
+db.nurses.aggregate([
+  {
+    $match: { name: /111/ }
+  },
+  {
+    $lookup:{
+      from: "doses",
+      pipeline: [
+        { "$match": { date: {$gt: ISODate("2021-05-01")} }}
+      ],
+      localField: "name",
+      foreignField: "nurse",
+      as: "vacunas"
+    }
+  },
+  {
+      $out: "nurses111"
+  }
+])

@@ -102,7 +102,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Optional<Centre> getCentreByName(String name) throws VaxException {
-        return Optional.empty();
+        return Optional.ofNullable(this.centreRepository.findByName(name));
     }
 
     @Override

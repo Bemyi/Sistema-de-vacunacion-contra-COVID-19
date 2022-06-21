@@ -98,8 +98,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException {
-        //return this.vaccinationScheduleRepository.findById(id); DEVUELVE UN OPTIONAL QUE NO QUEREMOS
-        return null;
+        return this.vaccinationScheduleRepository.findById(id).get();
     }
 
     @Override

@@ -43,7 +43,8 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Vaccine createVaccine(String name) throws VaxException {
-        return null;
+        Vaccine v = new Vaccine(name);
+        return (Vaccine) this.vaccineRepository.save(v);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Optional<Vaccine> getVaccineByName(String name) {
-        return Optional.empty();
+        return Optional.ofNullable(this.vaccineRepository.findByName(name));
     }
 
     @Override

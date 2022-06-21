@@ -5,7 +5,6 @@ import ar.edu.unlp.info.bd2.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
-import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -144,11 +143,7 @@ public class SpringDataVaxService implements VaxService {
     @Override
     public List<Centre> getCentresTopNStaff(int n) {
 
-        /*return centreRepository.findAll(PageRequest.of(0, n)).getContent();*/
-
-        Pageable paging = (Pageable) PageRequest.of(0, n);
-        Page<Centre> pagedResult = centreRepository.findAll(paging);
-        return pagedResult.getContent();
+        return centreRepository.getCentresTopNStaff(PageRequest.of(0, 5));
     }
 
     @Override

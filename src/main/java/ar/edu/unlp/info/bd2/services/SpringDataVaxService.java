@@ -168,7 +168,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public List<Vaccine> getUnappliedVaccines() {
-        return null;
+        return this.vaccineRepository.getUnappliedVaccines();
     }
 
     @Override

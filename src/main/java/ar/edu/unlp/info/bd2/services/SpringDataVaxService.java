@@ -113,12 +113,15 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Centre updateCentre(Centre centre) {
-        return null;
+        return (Centre) this.centreRepository.save(centre);
     }
 
     @Override
     public Optional<SupportStaff> getSupportStaffByDni(String dni) {
-        return Optional.empty();
+        Optional<SupportStaff> s =  Optional.ofNullable(
+                (SupportStaff) this.supportStaffRepository.findByDni(dni)
+        );
+        return s;
     }
 
     @Override

@@ -131,12 +131,12 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public List<Patient> getAllPatients() {
-        return null;
+        return (List<Patient>) this.patientRepository.findAll();
     }
 
     @Override
     public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
-        return null;
+        return this.nurseRepository.findByExperienceGreaterThan(years);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public List<Staff> getStaffWithName(String name) {
-        return null;
+        return this.staffRepository.getAllByName(name);
     }
 
     @Override
@@ -171,6 +171,6 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
-        return null;
+        return this.shotCertificateRepository.findByDateBetween(startDate, endDate);
     }
 }

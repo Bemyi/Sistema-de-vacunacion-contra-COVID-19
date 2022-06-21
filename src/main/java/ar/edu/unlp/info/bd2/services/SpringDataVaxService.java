@@ -3,9 +3,7 @@ package ar.edu.unlp.info.bd2.services;
 import ar.edu.unlp.info.bd2.model.*;
 import ar.edu.unlp.info.bd2.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.awt.print.Pageable;
 import java.util.Date;
@@ -165,7 +163,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public String getLessEmployeesSupportStaffArea() {
-        return null;
+        return (String) this.supportStaffRepository.getLessEmployeesSupportStaffArea(PageRequest.of(0, 1)).get(0);
     }
 
     @Override

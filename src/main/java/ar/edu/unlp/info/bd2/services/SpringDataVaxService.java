@@ -1,13 +1,41 @@
 package ar.edu.unlp.info.bd2.services;
 
 import ar.edu.unlp.info.bd2.model.*;
-import ar.edu.unlp.info.bd2.repositories.VaxException;
+import ar.edu.unlp.info.bd2.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class SpringDataVaxService implements VaxService {
+    @Autowired
+    private CentreRepository centreRepository;
+
+    @Autowired
+    private NurseRepository nurseRepository;
+
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private ShotCertificateRepository shotCertificateRepository;
+
+    @Autowired
+    private ShotRepository shotRepository;
+
+    @Autowired
+    private StaffRepository staffRepository;
+
+    @Autowired
+    private SupportStaffRepository supportStaffRepository;
+
+    @Autowired
+    private VaccinationScheduleRepository vaccinationScheduleRepository;
+
+    @Autowired
+    private VaccineRepository vaccineRepository;
+
     @Override
     public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException {
         return null;

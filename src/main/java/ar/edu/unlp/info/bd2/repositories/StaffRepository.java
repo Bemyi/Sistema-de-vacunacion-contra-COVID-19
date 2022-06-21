@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface StaffRepository extends CrudRepository<Staff, Long> {
-    List<Staff> getAllByName(String name);
+    List<Staff> getAllByFullNameContaining(String name);
 }

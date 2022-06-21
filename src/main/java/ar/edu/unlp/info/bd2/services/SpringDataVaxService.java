@@ -107,7 +107,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
-        return null;
+        return (SupportStaff) this.supportStaffRepository.save(staff);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule) {
-        return null;
+        return (VaccinationSchedule) this.vaccinationScheduleRepository.save(schedule);
     }
 
     @Override

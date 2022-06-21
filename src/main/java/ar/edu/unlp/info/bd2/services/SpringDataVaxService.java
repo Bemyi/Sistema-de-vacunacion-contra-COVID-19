@@ -50,7 +50,12 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException {
-        return null;
+        ShotCertificate sC = new ShotCertificate(date);
+        ShotCertificate shotCertificate = (ShotCertificate) this.shotCertificateRepository.save(sC);
+        Shot s = new Shot(patient, vaccine ,date ,centre , nurse, shotCertificate);
+        Shot shot = (Shot) this.shotRepository.save(s);
+        patient.addShot(shot);
+        return shot;
     }
 
     @Override
@@ -68,22 +73,26 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Centre createCentre(String name) throws VaxException {
-        return null;
+        Centre c = new Centre(name);
+        return (Centre) this.centreRepository.save(c);
     }
 
     @Override
     public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException {
-        return null;
+        Nurse n = new Nurse(dni, fullName, experience);
+        return (Nurse) this.nurseRepository.save(n);
     }
 
     @Override
     public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException {
-        return null;
+        SupportStaff s = new SupportStaff(dni, fullName, area);
+        return (SupportStaff) this.supportStaffRepository.save(s);
     }
 
     @Override
     public VaccinationSchedule createVaccinationSchedule() throws VaxException {
-        return null;
+        VaccinationSchedule v = new VaccinationSchedule();
+        return (VaccinationSchedule) this.vaccinationScheduleRepository.save(v);
     }
 
     @Override

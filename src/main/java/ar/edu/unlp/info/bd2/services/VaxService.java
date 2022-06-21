@@ -38,10 +38,10 @@ public interface VaxService extends VaxStatisticsService{
 	 * @throws VaxException
 	 */
 	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException;
-	
+
 
 	/**
-	 * 
+	 *
 	 * @param email email del usuario
 	 * @return
 	 */
@@ -73,12 +73,12 @@ public interface VaxService extends VaxStatisticsService{
 	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException;
 
 	/**
-	* @param dni el dni
-	* @param fullName nombre completo
-	* @param area el area o areas de trabajo
-	* @return el personal de apoyo creado
-	* @throws VaxException
-	* */
+	 * @param dni el dni
+	 * @param fullName nombre completo
+	 * @param area el area o areas de trabajo
+	 * @return el personal de apoyo creado
+	 * @throws VaxException
+	 * */
 	SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException;
 
 	/**
@@ -102,14 +102,14 @@ public interface VaxService extends VaxStatisticsService{
 	/**
 	 * @param staff el staff a actualizar
 	 * @return el staff
-	 * @throws VaxException 
+	 * @throws VaxException
 	 */
 	SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException;
 
 	/**
 	 * @param centre el centre a actualizar
 	 * @return el centre
-	 * @throws VaxException 
+	 * @throws VaxException
 	 */
 	Centre updateCentre(Centre centre);
 
@@ -120,9 +120,11 @@ public interface VaxService extends VaxStatisticsService{
 	Optional<SupportStaff> getSupportStaffByDni(String dni);
 
 	/**
-	 * @param vaccinationSchedule el vaccinationSchedule a actualizar
-	 * @return el vaccinationSchedule
-	 * @throws VaxException
+	 *
+	 * @param schedule
+	 * @return el VaccinationSchedule actualizado.
 	 */
-	VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule vaccinationSchedule);
+	VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule);
+
+
 }

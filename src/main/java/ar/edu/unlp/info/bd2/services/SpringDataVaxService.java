@@ -40,29 +40,44 @@ public class SpringDataVaxService implements VaxService {
     @Override
     public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException {
         Patient p = new Patient(email, fullname, password, dayOfBirth);
-        return (Patient) this.patientRepository.save(p);
+        try {
+            return this.patientRepository.save(p);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public Vaccine createVaccine(String name) throws VaxException {
         Vaccine v = new Vaccine(name);
-        return (Vaccine) this.vaccineRepository.save(v);
+        try{
+            return this.vaccineRepository.save(v);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException {
-        ShotCertificate sC = new ShotCertificate(date);
-        ShotCertificate shotCertificate = (ShotCertificate) this.shotCertificateRepository.save(sC);
-        Shot s = new Shot(patient, vaccine ,date ,centre , nurse, shotCertificate);
-        Shot shot = (Shot) this.shotRepository.save(s);
-        patient.addShot(shot);
-        return shot;
+        try{
+            ShotCertificate sC = new ShotCertificate(date);
+            ShotCertificate shotCertificate = this.shotCertificateRepository.save(sC);
+            Shot s = new Shot(patient, vaccine ,date ,centre , nurse, shotCertificate);
+            Shot shot = this.shotRepository.save(s);
+            patient.addShot(shot);
+            return shot;
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public Optional<Patient> getPatientByEmail(String email) {
         Optional<Patient> p =  Optional.ofNullable(
-                (Patient) this.patientRepository.findByEmail(email)
+                this.patientRepository.findByEmail(email)
         );
         return p;
     }
@@ -75,58 +90,93 @@ public class SpringDataVaxService implements VaxService {
     @Override
     public Centre createCentre(String name) throws VaxException {
         Centre c = new Centre(name);
-        return (Centre) this.centreRepository.save(c);
+        try{
+            return this.centreRepository.save(c);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException {
         Nurse n = new Nurse(dni, fullName, experience);
-        return (Nurse) this.nurseRepository.save(n);
+        try {
+            return this.nurseRepository.save(n);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException {
         SupportStaff s = new SupportStaff(dni, fullName, area);
-        return (SupportStaff) this.supportStaffRepository.save(s);
+        try {
+            return this.supportStaffRepository.save(s);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public VaccinationSchedule createVaccinationSchedule() throws VaxException {
         VaccinationSchedule v = new VaccinationSchedule();
-        return (VaccinationSchedule) this.vaccinationScheduleRepository.save(v);
+        try {
+            return this.vaccinationScheduleRepository.save(v);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException {
-        return this.vaccinationScheduleRepository.findById(id).get();
+        try {
+            return this.vaccinationScheduleRepository.findById(id).get();
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public Optional<Centre> getCentreByName(String name) throws VaxException {
-        return Optional.ofNullable(this.centreRepository.findByName(name));
+        try {
+            return Optional.ofNullable(this.centreRepository.findByName(name));
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
-        return (SupportStaff) this.supportStaffRepository.save(staff);
+        try {
+            return this.supportStaffRepository.save(staff);
+        }
+        catch (Exception e){
+            throw new VaxException("Constraint Violation");
+        }
     }
 
     @Override
     public Centre updateCentre(Centre centre) {
-        return (Centre) this.centreRepository.save(centre);
+        return this.centreRepository.save(centre);
     }
 
     @Override
     public Optional<SupportStaff> getSupportStaffByDni(String dni) {
         Optional<SupportStaff> s =  Optional.ofNullable(
-                (SupportStaff) this.supportStaffRepository.findByDni(dni)
+                this.supportStaffRepository.findByDni(dni)
         );
         return s;
     }
 
     @Override
     public VaccinationSchedule updateVaccinationSchedule(VaccinationSchedule schedule) {
-        return (VaccinationSchedule) this.vaccinationScheduleRepository.save(schedule);
+        return this.vaccinationScheduleRepository.save(schedule);
     }
 
     @Override

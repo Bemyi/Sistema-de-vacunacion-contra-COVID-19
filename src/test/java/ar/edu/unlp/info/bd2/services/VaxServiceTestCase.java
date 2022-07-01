@@ -56,8 +56,8 @@ public class VaxServiceTestCase {
 		assertEquals("Federico Orlando",user.getFullname());
 		assertEquals(dob, user.getDayOfBirth());
 		assertEquals("pas$w0rd", user.getPassword());
-		/*VaxException ex = assertThrows(VaxException.class, () -> this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
-		assertEquals("Constraint Violation",ex.getMessage());*/
+		VaxException ex = assertThrows(VaxException.class, () -> this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
+		assertEquals("Constraint Violation",ex.getMessage());
 	}
 
 	@Test
@@ -72,8 +72,8 @@ public class VaxServiceTestCase {
 		Vaccine saved = vax.get();
 		assertNotNull(saved.getId());
 		assertEquals("Sinopharm", saved.getName());
-		/*VaxException ex = assertThrows(VaxException.class, () -> this.service.createVaccine("Sinopharm"));
-		assertEquals("Constraint Violation",ex.getMessage());*/
+		VaxException ex = assertThrows(VaxException.class, () -> this.service.createVaccine("Sinopharm"));
+		assertEquals("Constraint Violation",ex.getMessage());
 	}
 
 	@Test

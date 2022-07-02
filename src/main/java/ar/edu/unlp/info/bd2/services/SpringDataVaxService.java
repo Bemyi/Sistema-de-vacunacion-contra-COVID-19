@@ -61,17 +61,12 @@ public class SpringDataVaxService implements VaxService {
 
     @Override
     public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException {
-        try{
-            ShotCertificate sC = new ShotCertificate(date);
-            ShotCertificate shotCertificate = this.shotCertificateRepository.save(sC);
-            Shot s = new Shot(patient, vaccine ,date ,centre , nurse, shotCertificate);
-            Shot shot = this.shotRepository.save(s);
-            patient.addShot(shot);
-            return shot;
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        ShotCertificate sC = new ShotCertificate(date);
+        ShotCertificate shotCertificate = this.shotCertificateRepository.save(sC);
+        Shot s = new Shot(patient, vaccine ,date ,centre , nurse, shotCertificate);
+        Shot shot = this.shotRepository.save(s);
+        patient.addShot(shot);
+        return shot;
     }
 
     @Override
@@ -90,75 +85,40 @@ public class SpringDataVaxService implements VaxService {
     @Override
     public Centre createCentre(String name) throws VaxException {
         Centre c = new Centre(name);
-        try{
-            return this.centreRepository.save(c);
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return this.centreRepository.save(c);
     }
 
     @Override
     public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException {
         Nurse n = new Nurse(dni, fullName, experience);
-        try {
-            return this.nurseRepository.save(n);
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return this.nurseRepository.save(n);
     }
 
     @Override
     public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException {
         SupportStaff s = new SupportStaff(dni, fullName, area);
-        try {
-            return this.supportStaffRepository.save(s);
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return this.supportStaffRepository.save(s);
     }
 
     @Override
     public VaccinationSchedule createVaccinationSchedule() throws VaxException {
         VaccinationSchedule v = new VaccinationSchedule();
-        try {
-            return this.vaccinationScheduleRepository.save(v);
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return this.vaccinationScheduleRepository.save(v);
     }
 
     @Override
     public VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException {
-        try {
-            return this.vaccinationScheduleRepository.findById(id).get();
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return this.vaccinationScheduleRepository.findById(id).get();
     }
 
     @Override
     public Optional<Centre> getCentreByName(String name) throws VaxException {
-        try {
-            return Optional.ofNullable(this.centreRepository.findByName(name));
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return Optional.ofNullable(this.centreRepository.findByName(name));
     }
 
     @Override
     public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
-        try {
-            return this.supportStaffRepository.save(staff);
-        }
-        catch (Exception e){
-            throw new VaxException("Constraint Violation");
-        }
+        return this.supportStaffRepository.save(staff);
     }
 
     @Override
